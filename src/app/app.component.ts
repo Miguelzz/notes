@@ -18,13 +18,8 @@ export class AppComponent {
   constructor(private router: Router) {
     setInterval(() => {
       memory.id = localStorage.getItem('id') || '';
-
-      if (memory.id) {
-        memory.user = JSON.parse(localStorage.getItem(memory.id) || '{}');
-        this.user = memory.user as any
-        console.log(this.user.validate)
-      }
-
+      memory.user = JSON.parse(localStorage.getItem(memory.id) || '{}');
+      this.user = memory.user as any
     }, 500)
 
   }

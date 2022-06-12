@@ -18,6 +18,9 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
 
+        memory.id = localStorage.getItem('id') || '';
+        memory.user = JSON.parse(localStorage.getItem(memory.id) || '{}');
+
         let validate = false;
         if (memory.user.validate) validate = true
         if (!validate)

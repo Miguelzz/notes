@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog, private noteService: NoteService) {
 
     this.notes = JSON.parse(localStorage.getItem(`${memory.id}-notes`) || '[]').filter((x: Note) => x);
-    console.log(this.notes)
   }
 
   newNote() {

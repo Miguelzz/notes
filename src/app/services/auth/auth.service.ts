@@ -13,14 +13,15 @@ export class AuthService {
   constructor(private router: Router,) { }
 
 
-  login(user: User) {
-    localStorage.setItem('id', md5(user.email?.trim() || ''))
-    memory.user = JSON.parse(localStorage.getItem(memory.id) || '{}');
+  async login(user: User) {
+    const id = md5(user.email?.trim() || '')
+    localStorage.setItem('id', id)
+    memory.user = JSON.parse(localStorage.getItem(id) || '{}');
 
-    if (memory.user.email === user.email && memory.user.password === user.password) {
-      console.log(memory)
+    console.log(memory.user.email, user.email, memory.user.password, user.password)
+    if (memory.user.email == user.email && memory.user.password == user.password) {
       memory.user.validate = true;
-      localStorage.setItem(memory.id, JSON.stringify(memory.user))
+      localStorage.setItem(id, JSON.stringify(memory.user))
       this.router.navigate(['/'])
     } else {
       Swal.fire({
@@ -39,6 +40,7 @@ export class AuthService {
   }
 
   register(user: User) {
+    memory.user = user
     const id = md5(user.email?.trim() || '')
     localStorage.setItem('id', id)
     localStorage.setItem(id, JSON.stringify(user))
