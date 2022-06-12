@@ -6,6 +6,7 @@ import {
     RouterStateSnapshot,
     UrlTree
 } from "@angular/router";
+import { memory } from "./memory";
 //import { AuthService } from "./auth.service";
 
 @Injectable()
@@ -18,13 +19,9 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot): boolean | Promise<boolean> {
 
         let validate = false;
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        // var validate = this.authService.getAuthStatus();
-        if (user.validate) validate = true
-        if (!validate) {
+        if (memory.user.validate) validate = true
+        if (!validate)
             this.router.navigate(['/login']);
-        }
-
 
         return validate;
     }

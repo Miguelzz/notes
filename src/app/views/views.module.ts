@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { CalendarPipe } from '../../assets/pipes/dates';
 
 
 
@@ -15,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     NoteComponent,
     HomeComponent,
+
+    CalendarPipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule
+
   ]
 })
 export class ViewsModule { }

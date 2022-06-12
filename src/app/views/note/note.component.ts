@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Note } from 'src/app/models/note';
 
 
-export interface Note {
-  title: string;
-  description: string;
-  date: Date;
+
+export function notMail(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(control.value) ? { forbiddenName: { value: control.value } } : null;
+  };
 }
-
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
@@ -17,10 +18,9 @@ export interface Note {
 export class NoteComponent implements OnInit {
 
 
-
   note = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
+    title: new FormControl('', [Validators.required, Validators.minLength(4), notMail()]),
+    description: new FormControl('', [Validators.required, Validators.minLength(25), Validators.maxLength(150)]),
     date: new FormControl(new Date()),
   });
 
@@ -30,7 +30,21 @@ export class NoteComponent implements OnInit {
   ) {
 
     this.note.reset(data);
-    this.note.valueChanges.subscribe((x) => data = x as Note)
+    this.note.valueChanges.subscribe((x) => data = {
+      title: x.title?.toUpperCase(),
+      description: x,
+      date: x.date
+
+
+    } as Note)
+  }
+
+  validateEmail(value: string | null | undefined) {
+    return /\S+@\S+\.\S+/.test(`${value}`)
+  }
+
+  minMax(value: string | null | undefined) {
+    return `${value}`.length <= 150 && `${value}`.length >= 25
   }
 
 

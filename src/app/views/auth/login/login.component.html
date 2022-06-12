@@ -4,7 +4,9 @@
 
     <form class="form-note" [formGroup]="login">
 
-
+      <div class="avatar">
+        <div>{{login.value.email | firstLetter | uppercase }}</div>
+      </div>
 
       <mat-form-field appearance="legacy">
         <mat-label>Correo</mat-label>
@@ -20,7 +22,7 @@
     </form>
 
     <mat-card-actions>
-      <button (click)="loginUser()" mat-button>Inicia sesión</button>
+      <button [disabled]="login.invalid" (click)="loginUser()" mat-button>Inicia sesión</button>
     </mat-card-actions>
   </mat-card>
 </div>

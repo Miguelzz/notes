@@ -17,17 +17,11 @@
       <mat-expansion-panel-header>
 
         <mat-panel-title>
-
           {{note.title}}
         </mat-panel-title>
         <mat-panel-description>
 
-
-
-
         </mat-panel-description>
-
-
 
       </mat-expansion-panel-header>
 
@@ -35,7 +29,7 @@
         <p> {{note.description}}</p>
 
         <div class="edit-note">
-          <div>{{format(note.date)}}</div>
+          <div>{{note.date | calendar}}</div>
           <div>
             <mat-icon class="note-btn" (click)="editNote(i,note)">edit</mat-icon>&nbsp;
             <mat-icon class="note-btn" (click)="deleteNote(i)">delete</mat-icon>

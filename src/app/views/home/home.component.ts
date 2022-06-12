@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Note, NoteComponent } from '../note/note.component';
-import * as moment from 'moment';
+import { memory } from 'src/app/config/memory';
+import { Note } from 'src/app/models/note';
+import { User } from 'src/app/models/user';
+import { NoteService } from 'src/app/services/note/note.service';
+import { md5 } from 'src/assets/functions/strings';
+import { NoteComponent } from '../note/note.component';
 
 
 
@@ -14,19 +18,19 @@ export class HomeComponent implements OnInit {
 
   notes: Note[] = []
 
-  constructor(public dialog: MatDialog) {
-    moment.locale('es');
-    this.notes = JSON.parse(localStorage.getItem('notes') || '[]').filter((x: Note) => x);
+  constructor(public dialog: MatDialog, private noteService: NoteService) {
+
+    this.notes = JSON.parse(localStorage.getItem(`${memory.id}-notes`) || '[]').filter((x: Note) => x);
     console.log(this.notes)
   }
 
   newNote() {
-    const dialogRef = this.dialog.open(NoteComponent, { data: { title: 'Titulo' } });
+    const dialogRef = this.dialog.open(NoteComponent, { data: { title: 'Titulo', date: new Date() } });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.notes.push(result);
-        localStorage.setItem('notes', JSON.stringify(this.notes));
+        localStorage.setItem(`${memory.id}-notes`, JSON.stringify(this.notes));
       }
 
     });
@@ -39,7 +43,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.notes[index] = result;
-        localStorage.setItem('notes', JSON.stringify(this.notes));
+        localStorage.setItem(`${memory.id}-notes`, JSON.stringify(this.notes));
       }
     });
   }
@@ -50,10 +54,6 @@ export class HomeComponent implements OnInit {
   }
 
 
-
-  format(date: Date): string {
-    return moment(date).calendar();
-  }
 
   ngOnInit(): void {
   }

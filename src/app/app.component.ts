@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { memory } from './config/memory';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +11,29 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'notes';
 
-  user = {
+  user: User = {
     validate: false
   };
 
-  constructor() {
+  constructor(private router: Router) {
     setInterval(() => {
-      this.user = JSON.parse(localStorage.getItem('user') || '{}');
+      memory.id = localStorage.getItem('id') || '';
+
+      if (memory.id) {
+        memory.user = JSON.parse(localStorage.getItem(memory.id) || '{}');
+        this.user = memory.user as any
+        console.log(this.user.validate)
+      }
+
     }, 500)
 
   }
 
   logOutUser() {
-    localStorage.removeItem('user')
+    localStorage.setItem(memory.id!, JSON.stringify({
+      ...this.user,
+      validate: false,
+    }))
+    this.router.navigate(['/login'])
   }
 }
