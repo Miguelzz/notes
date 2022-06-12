@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authService: AuthService) {
-    this.login.reset(JSON.parse(localStorage.getItem(memory.id) || '{}'));
+    this.login.reset(memory.user);
 
   }
 

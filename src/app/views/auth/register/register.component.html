@@ -29,7 +29,7 @@
     </form>
 
     <mat-card-actions>
-      <button [disabled]="register.invalid" (click)="registerUser()" mat-button>Registrarse</button>
+      <button [disabled]="register.invalid && !valid()" (click)="registerUser()" mat-button>Registrarse</button>
     </mat-card-actions>
   </mat-card>
 </div>

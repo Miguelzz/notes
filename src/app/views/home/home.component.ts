@@ -19,37 +19,23 @@ export class HomeComponent implements OnInit {
   notes: Note[] = []
 
   constructor(public dialog: MatDialog, private noteService: NoteService) {
-
-    this.notes = JSON.parse(localStorage.getItem(`${memory.id}-notes`) || '[]').filter((x: Note) => x);
+    this.notes = noteService.getNotes()
   }
 
   newNote() {
     const dialogRef = this.dialog.open(NoteComponent, { data: { title: 'Titulo', date: new Date() } });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.notes.push(result);
-        localStorage.setItem(`${memory.id}-notes`, JSON.stringify(this.notes));
-      }
-
-    });
+    dialogRef.afterClosed().subscribe(note => this.notes = this.noteService.newNote(note));
   }
 
 
   editNote(index: number, note: Note) {
     const dialogRef = this.dialog.open(NoteComponent, { data: note });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.notes[index] = result;
-        localStorage.setItem(`${memory.id}-notes`, JSON.stringify(this.notes));
-      }
-    });
+    dialogRef.afterClosed().subscribe(note => this.notes = this.noteService.editNote(index, note));
   }
 
   deleteNote(index: number) {
-    this.notes.splice(index, 1);
-    localStorage.setItem('notes', JSON.stringify(this.notes));
+    this.notes = this.noteService.deleteNote(index)
   }
 
 

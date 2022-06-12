@@ -25,10 +25,14 @@ export class AppComponent {
   }
 
   logOutUser() {
+
     localStorage.setItem(memory.id!, JSON.stringify({
       ...this.user,
       validate: false,
     }))
+
+    memory.notes = []
+
     this.router.navigate(['/login'])
   }
 }
