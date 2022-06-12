@@ -1,0 +1,54 @@
+<!-- <div class="content" role="main">
+  <span class="material-icons">pie_chart</span>
+  <a routerLink="/" routerLinkActive="active">Home</a>
+  <a routerLink="/login" routerLinkActive="active">Login</a>
+  <a routerLink="/register" routerLinkActive="active">Register</a>
+  
+
+</div> -->
+
+
+
+
+<div class="container notes">
+
+  <mat-accordion *ngFor="let note of notes; index as i;">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+
+          {{note.title}}
+        </mat-panel-title>
+        <mat-panel-description>
+
+
+
+
+        </mat-panel-description>
+
+
+
+      </mat-expansion-panel-header>
+
+      <div>
+        <p> {{note.description}}</p>
+
+        <div class="edit-note">
+          <div>{{format(note.date)}}</div>
+          <div>
+            <mat-icon class="note-btn" (click)="editNote(i,note)">edit</mat-icon>&nbsp;
+            <mat-icon class="note-btn" (click)="deleteNote(i)">delete</mat-icon>
+          </div>
+        </div>
+      </div>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
+
+<a class="add-note" mat-fab color="primary" (click)="newNote()">
+  <mat-icon>add</mat-icon>
+</a>

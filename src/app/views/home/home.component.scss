@@ -1,0 +1,25 @@
+
+
+.add-note{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.notes {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.edit-note{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+}
+
+.note-btn {
+    color: #4a4a4a;
+    cursor: pointer;
+}

@@ -7,4 +7,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'notes';
+
+  user = {
+    validate: false
+  };
+
+  constructor() {
+    setInterval(() => {
+      this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    }, 500)
+
+  }
+
+  logOutUser() {
+    localStorage.removeItem('user')
+  }
 }

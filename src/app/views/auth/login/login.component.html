@@ -1,0 +1,26 @@
+<div class="login">
+  <mat-card style="width: 300px;">
+    <mat-card-title>Iniciar sesión</mat-card-title>
+
+    <form class="form-note" [formGroup]="login">
+
+
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Correo</mat-label>
+        <input type="email" matInput formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+
+
+    </form>
+
+    <mat-card-actions>
+      <button (click)="loginUser()" mat-button>Inicia sesión</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
